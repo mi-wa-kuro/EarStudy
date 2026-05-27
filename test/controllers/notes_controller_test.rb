@@ -1,8 +1,8 @@
 require "test_helper"
 
 class NotesControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get notes_index_url
-    assert_response :success
+  test "should redirect to sign in when not logged in" do
+    get notes_url
+    assert_redirected_to new_user_session_url
   end
 end
