@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  get "terms", to: "pages#terms", as: :terms
-  get "privacy", to: "pages#privacy", as: :privacy
+  resources :notes, only: [:index]
+  get "terms", to: "pages#terms"
+  get "privacy", to: "pages#privacy"
   devise_for :users
 
   get "home/top"
