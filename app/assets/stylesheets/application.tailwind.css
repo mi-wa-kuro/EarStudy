@@ -142,3 +142,28 @@
 .repeat-button{
   background-color:#3b82f6;
 }
+
+/*ノート作成編集ボタン*/
+.note-action-buttons{
+  display:flex;
+  gap:12px;
+  margin-top:20px;
+}
+
+.note-action-button{
+  padding:10px 20px;
+  border-radius:8px;
+  color:white;
+  font-weight:bold;
+  text-decoration:none;
+}
+
+.create-note-button{
+  background-color:#8b5cf6;
+}
+
+.edit-note-button{
+  background-color:#f59e0b;
+  border:none;
+  cursor:pointer;
+}
