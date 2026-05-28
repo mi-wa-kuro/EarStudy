@@ -39,6 +39,7 @@
     <% @notes.each do |note| %>
       <div>
         <%= note.title %>
+        <%= link_to "編集", edit_note_path(note) %>
       </div>
     <% end %>
   </div>
