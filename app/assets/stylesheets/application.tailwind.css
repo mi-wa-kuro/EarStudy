@@ -113,3 +113,32 @@
   font-size: 14px;
   color: #9ca3af;
 }
+
+/*学習ノートページ*/
+/*左側・プレイヤーエリア*/
+.player-buttons{
+  display:flex;
+  gap:12px;
+  margin-top:16px;
+}
+
+.player-button{
+  padding:10px 20px;
+  border:none;
+  border-radius:8px;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.play-button{
+  background-color:#22c55e;
+}
+
+.stop-button{
+  background-color:#ef4444;
+}
+
+.repeat-button{
+  background-color:#3b82f6;
+}
