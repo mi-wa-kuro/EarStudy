@@ -37,11 +37,19 @@
     <%= link_to "ノートを投稿する", new_note_path %>
 
     <% @notes.each do |note| %>
-      <div>
-        <%= note.title %>
-        <%= link_to "編集", edit_note_path(note) %>
-        <%= button_to "削除", note_path(note), method: :delete %>
-      </div>
-    <% end %>
+  <div>
+    <%= note.title %>
+
+    <button
+  type="button"
+  class="note-speak-button"
+  data-text="<%= note.content %>">
+  読み上げ
+</button>
+
+    <%= link_to "編集", edit_note_path(note) %>
+    <%= button_to "削除", note_path(note), method: :delete %>
+  </div>
+  <% end %>
   </div>
 </div>
