@@ -1,10 +1,20 @@
 <h1>学習ノート一覧</h1>
 
-<%= link_to "ノートを投稿する", new_note_path %>
-
-<% @notes.each do |note| %>
+<div>
   <div>
-    <h2><%= note.title %></h2>
-    <p><%= note.content %></p>
+    <h2>学習ノート</h2>
+    <p>左側エリアは今後プレイヤーなどを配置予定です。</p>
   </div>
-<% end %>
+
+  <div>
+    <h2>タイトル一覧</h2>
+
+    <%= link_to "ノートを投稿する", new_note_path %>
+
+    <% @notes.each do |note| %>
+      <div>
+        <%= note.title %>
+      </div>
+    <% end %>
+  </div>
+</div>
