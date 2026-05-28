@@ -32,6 +32,13 @@ class NotesController < ApplicationController
     end
   end
 
+  def destroy
+    @note = Note.find(params[:id])
+    @note.destroy
+
+    redirect_to notes_path, notice: "学習ノートを削除しました"
+  end
+
   private
 
   def note_params
