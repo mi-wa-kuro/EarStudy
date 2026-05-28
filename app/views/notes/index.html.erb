@@ -40,6 +40,7 @@
       <div>
         <%= note.title %>
         <%= link_to "編集", edit_note_path(note) %>
+        <%= button_to "削除", note_path(note), method: :delete %>
       </div>
     <% end %>
   </div>

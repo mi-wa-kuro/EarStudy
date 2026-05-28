@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :notes, only: [ :index, :new, :create, :edit, :update ]
+  resources :notes, only: [ :index, :new, :create, :edit, :update, :destroy ]
   get "terms", to: "pages#terms"
   get "privacy", to: "pages#privacy"
   devise_for :users
