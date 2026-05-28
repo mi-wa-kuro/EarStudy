@@ -10,18 +10,25 @@
     </div>
 
     <div class="player-buttons">
-  <button type="button" class="player-button play-button">
-    再生
-  </button>
+      <button type="button" class="player-button play-button">
+        再生
+      </button>
 
-  <button type="button" class="player-button stop-button">
-    停止
-  </button>
+      <button type="button" class="player-button stop-button">
+        停止
+      </button>
 
-  <button type="button" class="player-button repeat-button">
-    リピート
-  </button>
-</div>
+      <button type="button" class="player-button repeat-button">
+        リピート
+      </button>
+    </div>
+    <div class="note-action-buttons">
+      <%= link_to "ノート作成", new_note_path, class: "note-action-button create-note-button" %>
+
+      <button type="button" class="note-action-button edit-note-button">
+        ノート編集
+      </button>
+    </div>
   </div>
 
   <div>
