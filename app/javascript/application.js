@@ -3,6 +3,7 @@ import "./controllers"
 
 document.addEventListener("turbo:load", () => {
   const speakButtons = document.querySelectorAll(".note-speak-button");
+  const stopButton = document.querySelector(".stop-button");
 
   speakButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -23,4 +24,10 @@ document.addEventListener("turbo:load", () => {
       speechSynthesis.speak(utterance);
     });
   });
+
+  if (stopButton) {
+    stopButton.addEventListener("click", () => {
+      speechSynthesis.cancel();
+    });
+  }
 });
