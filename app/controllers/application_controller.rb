@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
+  private
   # ログイン後の遷移先
-  def after_sign_in_path_for(resource)
-    root_path
+  def after_sign_in_path_for(_resource)
+    notes_path
   end
   # ログアウト後の遷移先
   def after_sign_out_path_for(resource_or_scope)
