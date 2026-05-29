@@ -1,18 +1,11 @@
 import "@hotwired/turbo-rails"
 import "./controllers"
 
-alert("application.jsが読み込まれています");
-
 document.addEventListener("turbo:load", () => {
-  console.log("読み上げJSが読み込まれました");
-
   const speakButtons = document.querySelectorAll(".note-speak-button");
-  console.log("読み上げボタンの数:", speakButtons.length);
 
   speakButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      alert("読み上げボタンがクリックされました");
-
       const text = button.dataset.text;
 
       if (!text) {
@@ -20,13 +13,14 @@ document.addEventListener("turbo:load", () => {
         return;
       }
 
+      speechSynthesis.cancel();
+
       const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "ja-JP";
+      utterance.rate = 1;
+      utterance.pitch = 1;
 
-      window.speechSynthesis.cancel();
-
-      setTimeout(() => {
-        window.speechSynthesis.speak(utterance);
-      }, 100);
+      speechSynthesis.speak(utterance);
     });
   });
 });
