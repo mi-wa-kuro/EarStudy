@@ -1,0 +1,40 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      note: ノート
+    attributes:
+      user:
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード確認
+      note:
+        title: タイトル
+        content: 本文
+    errors:
+      messages:
+        blank: を入力してください
+        too_short: は%{count}文字以上で入力してください
+        confirmation: と一致しません
+        taken: はすでに存在します
+        invalid: は不正な値です
+
+  errors:
+    format: "%{attribute}%{message}"
+    messages:
+      not_saved: "入力内容にエラーがあります"
+      blank: を入力してください
+      too_short: は%{count}文字以上で入力してください
+      confirmation: と一致しません
+      taken: はすでに存在します
+      invalid: は不正な値です
+
+  devise:
+    sessions:
+      signed_in: ログインしました
+      signed_out: ログアウトしました
+      already_signed_out: すでにログアウトしています
+    failure:
+      invalid: メールアドレスまたはパスワードが違います
+      user:
+        invalid: メールアドレスまたはパスワードが違います
