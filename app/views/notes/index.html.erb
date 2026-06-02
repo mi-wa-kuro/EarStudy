@@ -1,55 +1,53 @@
-<h1>学習ノート一覧</h1>
+<div class="notes-page">
+  <h1 class="notes-page__title">学習ノート一覧</h1>
 
-<div>
-  <div>
-    <h2>プレイヤーエリア</h2>
+  <div class="notes-page__content">
+    <section class="player-area">
+      <h2 class="player-area__title">プレイヤーエリア</h2>
 
-    <div>
-      <p>選択中のノートタイトル</p>
-      <h3>ノートを選択してください</h3>
-    </div>
+      <div class="player-card">
+        <p class="player-card__label">選択中のノートタイトル</p>
+        <h3 id="selected-note-title" class="player-card__title">ノートを選択してください</h3>
+      </div>
 
-    <div class="player-buttons">
-      <button type="button" class="player-button play-button">
-        再生
-      </button>
+      <div class="player-buttons">
+        <button type="button" class="player-button stop-button">
+          <%= image_tag "stop.png", alt: "停止", class: "player-button__icon" %>
+        </button>
 
-      <button type="button" class="player-button stop-button">
-        停止
-      </button>
+        <button type="button" class="player-button play-button">
+          <%= image_tag "play.png", alt: "再生", class: "player-button__icon", id: "play-button-icon" %>
+        </button>
 
-      <button type="button" class="player-button repeat-button">
-        リピート
-      </button>
-    </div>
-    <div class="note-action-buttons">
-      <%= link_to "ノート作成", new_note_path, class: "note-action-button create-note-button" %>
+        <button type="button" class="player-button repeat-button">
+          <%= image_tag "repeat.png", alt: "リピート", class: "player-button__icon" %>
+        </button>
+      </div>
 
-      <button type="button" class="note-action-button edit-note-button">
-        ノート編集
-      </button>
-    </div>
-  </div>
+      <div class="note-action-buttons">
+          <%= link_to "ノート作成", new_note_path, class: "note-action-button create-note-button" %>
 
-  <div>
-    <h2>タイトル一覧</h2>
+          <%= link_to "ノート編集", "#", id: "selected-note-edit-link", class: "note-action-button edit-note-button" %>
+      </div>
+    </section>
 
-    <%= link_to "ノートを投稿する", new_note_path %>
+    <section class="notes-list-area">
+      <div class="notes-list-header">
+        <h2 class="notes-list-header__title">タイトル一覧</h2>
+        <%= link_to "ノートを投稿する", new_note_path, class: "notes-list-header__link" %>
+      </div>
 
-    <% @notes.each do |note| %>
-  <div>
-    <%= note.title %>
-
-    <button
-  type="button"
-  class="note-speak-button"
-  data-text="<%= note.content %>">
-  読み上げ
-</button>
-
-    <%= link_to "編集", edit_note_path(note) %>
-    <%= button_to "削除", note_path(note), method: :delete %>
-  </div>
-  <% end %>
+      <div class="notes-list">
+        <% @notes.each do |note| %>
+            <div
+              class="note-item"
+              data-note-id="<%= note.id %>"
+              data-note-title="<%= note.title %>"
+              data-note-content="<%= note.content %>">
+              <p class="note-item__title"><%= note.title %></p>
+            </div>
+        <% end %>
+      </div>
+    </section>
   </div>
 </div>

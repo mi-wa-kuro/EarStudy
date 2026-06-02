@@ -1,19 +1,22 @@
-<h1>学習ノート投稿</h1>
+<div class="note-form-page">
+  <div class="note-form-card">
+    <h1 class="note-form-title">学習ノート投稿</h1>
 
-<%= form_with model: @note do |f| %>
+    <%= form_with model: @note, class: "note-form" do |f| %>
+      <div class="note-form-group">
+        <%= f.label :title, "タイトル", class: "note-form-label" %>
+        <%= f.text_field :title, class: "note-form-input" %>
+      </div>
 
-  <div>
-    <%= f.label :title, "タイトル" %><br>
-    <%= f.text_field :title %>
+      <div class="note-form-group">
+        <%= f.label :content, "内容", class: "note-form-label" %>
+        <%= f.text_area :content, class: "note-form-textarea" %>
+      </div>
+
+      <div class="note-form-actions">
+        <%= f.submit "登録する", class: "note-form-submit" %>
+        <%= link_to "一覧に戻る", notes_path, class: "note-form-back-link" %>
+      </div>
+    <% end %>
   </div>
-
-  <div>
-    <%= f.label :content, "内容" %><br>
-    <%= f.text_area :content %>
-  </div>
-
-  <div>
-    <%= f.submit "登録する" %>
-  </div>
-
-<% end %>
+</div>
