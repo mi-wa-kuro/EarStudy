@@ -1,17 +1,32 @@
-<h1>学習ノート編集</h1>
+<div class="note-form-page">
+  <div class="note-form-card">
+    <h1 class="note-form-title">学習ノート編集</h1>
 
-<%= form_with model: @note, local: true do |f| %>
-  <div>
-    <%= f.label :title, "タイトル" %><br>
-    <%= f.text_field :title %>
+    <%= form_with model: @note, class: "note-form" do |f| %>
+      <div class="note-form-group">
+        <%= f.label :title, "タイトル", class: "note-form-label" %>
+        <%= f.text_field :title, class: "note-form-input" %>
+      </div>
+
+      <div class="note-form-group">
+        <%= f.label :content, "内容", class: "note-form-label" %>
+        <%= f.text_area :content, class: "note-form-textarea" %>
+      </div>
+
+      <div class="note-form-actions">
+        <%= f.submit "更新する", class: "note-form-submit" %>
+        <%= link_to "一覧に戻る", notes_path, class: "note-form-back-link" %>
+      </div>
+    <% end %>
+
+    <div class="note-form-danger-zone">
+      <p class="note-form-danger-text">このノートを削除する場合はこちら</p>
+
+      <%= button_to "削除する",
+                    note_path(@note),
+                    method: :delete,
+                    class: "note-form-delete-button",
+                    data: { turbo_confirm: "本当に削除しますか？" } %>
+    </div>
   </div>
-
-  <div>
-    <%= f.label :content, "内容" %><br>
-    <%= f.text_area :content %>
-  </div>
-
-  <%= f.submit "更新する" %>
-<% end %>
-
-<%= link_to "一覧に戻る", notes_path %>
+</div>
