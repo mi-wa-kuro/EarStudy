@@ -16,7 +16,7 @@
         </button>
 
         <button type="button" class="player-button play-button">
-          <%= image_tag "play.png", alt: "再生", class: "player-button__icon", id: "play-button-icon" %>
+          <%= image_tag "play.png", alt: "再生", class: "player-button__icon", id: "play-button-icon",data: { play_src: asset_path("play.png"), pause_src: asset_path("pause.png") } %>
         </button>
 
         <button type="button" class="player-button repeat-button">
