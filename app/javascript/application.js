@@ -65,14 +65,14 @@ document.addEventListener("turbo:load", () => {
 
       if (speechSynthesis.paused) {
         speechSynthesis.resume();
-        playButtonIcon.src = "/assets/pause.png";
+        playButtonIcon.src = playButtonIcon.dataset.pauseSrc;
         isPaused = false;
         return;
       }
 
       if (speechSynthesis.speaking) {
         speechSynthesis.pause();
-        playButtonIcon.src = "/assets/play.png";
+        playButtonIcon.src = playButtonIcon.dataset.playSrc;
         isPaused = true;
         return;
       }
@@ -96,15 +96,15 @@ document.addEventListener("turbo:load", () => {
           repeatUtterance.onend = utterance.onend;
 
           speechSynthesis.speak(repeatUtterance);
-          playButtonIcon.src = "/assets/pause.png";
+          playButtonIcon.src = playButtonIcon.dataset.pauseSrc;
           return;
         }
 
-        playButtonIcon.src = "/assets/play.png";
+        playButtonIcon.src = playButtonIcon.dataset.playSrc;
       };
 
       speechSynthesis.speak(utterance);
-      playButtonIcon.src = "/assets/pause.png";
+      playButtonIcon.src = playButtonIcon.dataset.pauseSrc;
     });
   }
   if (editLink) {
@@ -153,7 +153,7 @@ if (deleteLink) {
       speechSynthesis.cancel();
 
       if (playButtonIcon) {
-        playButtonIcon.src = "/assets/play.png";
+        playButtonIcon.src = playButtonIcon.dataset.playSrc;
         playButtonIcon.alt = "再生";
       }
 
