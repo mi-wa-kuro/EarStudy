@@ -1,15 +1,17 @@
 class NotesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_note, only: %i[edit update destroy]
+
   def index
-    @notes = Note.all
+    @notes = current_user.notes
   end
 
   def new
-    @note = Note.new
+    @note = current_user.notes.build
   end
 
   def create
-    @note = Note.new(note_params)
+    @note = current_user.notes.build(note_params)
 
     if @note.save
       redirect_to notes_path, notice: "ノートを投稿しました"
@@ -18,13 +20,9 @@ class NotesController < ApplicationController
     end
   end
 
-  def edit
-    @note = Note.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @note = Note.find(params[:id])
-
     if @note.update(note_params)
       redirect_to notes_path, notice: "学習ノートを更新しました"
     else
@@ -33,13 +31,16 @@ class NotesController < ApplicationController
   end
 
   def destroy
-    @note = Note.find(params[:id])
     @note.destroy
 
     redirect_to notes_path, notice: "学習ノートを削除しました"
   end
 
   private
+
+  def set_note
+    @note = current_user.notes.find(params[:id])
+  end
 
   def note_params
     params.require(:note).permit(:title, :content)
