@@ -2,6 +2,16 @@
   <div class="note-form-card">
     <h1 class="note-form-title">学習ノート編集</h1>
 
+    <% if @note.errors.any? %>
+      <div class="note-form-errors">
+        <ul>
+          <% @note.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
     <%= form_with model: @note, class: "note-form" do |f| %>
       <div class="note-form-group">
         <%= f.label :title, "タイトル", class: "note-form-label" %>
