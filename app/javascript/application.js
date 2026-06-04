@@ -9,26 +9,34 @@ document.addEventListener("turbo:load", () => {
   const repeatButton = document.querySelector(".repeat-button");
   const editLink = document.getElementById("selected-note-edit-link");
   const deleteLink = document.getElementById("selected-note-delete-link");
+  const speakButtons = document.querySelectorAll(".note-speak-button");
+  const stopButton = document.querySelector(".stop-button");
 
   let selectedNoteContent = "";
   let selectedNoteId = "";
-  let isPaused = false;
   let isRepeat = false;
+
+  const resetSpeech = () => {
+    speechSynthesis.resume();
+    speechSynthesis.cancel();
+
+    if (playButtonIcon) {
+      playButtonIcon.src = playButtonIcon.dataset.playSrc;
+      playButtonIcon.alt = "再生";
+    }
+  };
 
   if (repeatButton) {
     repeatButton.addEventListener("click", () => {
       isRepeat = !isRepeat;
-
-      if (isRepeat) {
-        repeatButton.classList.add("repeat-button--active");
-      } else {
-        repeatButton.classList.remove("repeat-button--active");
-      }
+      repeatButton.classList.toggle("repeat-button--active", isRepeat);
     });
   }
 
   noteItems.forEach((noteItem) => {
     noteItem.addEventListener("click", () => {
+      resetSpeech();
+
       const id = noteItem.dataset.noteId;
       const title = noteItem.dataset.noteTitle;
       const content = noteItem.dataset.noteContent;
@@ -52,7 +60,7 @@ document.addEventListener("turbo:load", () => {
 
       if (deleteLink) {
         deleteLink.href = `/notes/${selectedNoteId}`;
-    }
+      }
     });
   });
 
@@ -63,17 +71,23 @@ document.addEventListener("turbo:load", () => {
         return;
       }
 
-      if (speechSynthesis.paused) {
+      if (speechSynthesis.paused && speechSynthesis.speaking) {
         speechSynthesis.resume();
-        playButtonIcon.src = playButtonIcon.dataset.pauseSrc;
-        isPaused = false;
+
+        if (playButtonIcon) {
+          playButtonIcon.src = playButtonIcon.dataset.pauseSrc;
+        }
+
         return;
       }
 
       if (speechSynthesis.speaking) {
         speechSynthesis.pause();
-        playButtonIcon.src = playButtonIcon.dataset.playSrc;
-        isPaused = true;
+
+        if (playButtonIcon) {
+          playButtonIcon.src = playButtonIcon.dataset.playSrc;
+        }
+
         return;
       }
 
@@ -85,48 +99,46 @@ document.addEventListener("turbo:load", () => {
       utterance.pitch = 1;
 
       utterance.onend = () => {
-        isPaused = false;
-
         if (isRepeat && selectedNoteContent) {
-          const repeatUtterance = new SpeechSynthesisUtterance(selectedNoteContent);
-          repeatUtterance.lang = "ja-JP";
-          repeatUtterance.rate = 1;
-          repeatUtterance.pitch = 1;
+          speechSynthesis.speak(utterance);
 
-          repeatUtterance.onend = utterance.onend;
+          if (playButtonIcon) {
+            playButtonIcon.src = playButtonIcon.dataset.pauseSrc;
+          }
 
-          speechSynthesis.speak(repeatUtterance);
-          playButtonIcon.src = playButtonIcon.dataset.pauseSrc;
           return;
         }
 
-        playButtonIcon.src = playButtonIcon.dataset.playSrc;
+        if (playButtonIcon) {
+          playButtonIcon.src = playButtonIcon.dataset.playSrc;
+        }
       };
 
       speechSynthesis.speak(utterance);
-      playButtonIcon.src = playButtonIcon.dataset.pauseSrc;
+
+      if (playButtonIcon) {
+        playButtonIcon.src = playButtonIcon.dataset.pauseSrc;
+      }
     });
   }
+
   if (editLink) {
-  editLink.addEventListener("click", (event) => {
-    if (!selectedNoteId) {
-      event.preventDefault();
-      alert("編集するノートを選択してください");
-    }
-  });
-}
+    editLink.addEventListener("click", (event) => {
+      if (!selectedNoteId) {
+        event.preventDefault();
+        alert("編集するノートを選択してください");
+      }
+    });
+  }
 
-if (deleteLink) {
-  deleteLink.addEventListener("click", (event) => {
-    if (!selectedNoteId) {
-      event.preventDefault();
-      alert("削除するノートを選択してください");
-    }
-  });
-}
-
-  const speakButtons = document.querySelectorAll(".note-speak-button");
-  const stopButton = document.querySelector(".stop-button");
+  if (deleteLink) {
+    deleteLink.addEventListener("click", (event) => {
+      if (!selectedNoteId) {
+        event.preventDefault();
+        alert("削除するノートを選択してください");
+      }
+    });
+  }
 
   speakButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -150,14 +162,7 @@ if (deleteLink) {
 
   if (stopButton) {
     stopButton.addEventListener("click", () => {
-      speechSynthesis.cancel();
-
-      if (playButtonIcon) {
-        playButtonIcon.src = playButtonIcon.dataset.playSrc;
-        playButtonIcon.alt = "再生";
-      }
-
-      isPaused = false;
+      resetSpeech();
     });
   }
 });
